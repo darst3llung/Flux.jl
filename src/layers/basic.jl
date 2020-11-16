@@ -59,7 +59,7 @@ julia> outdims(m, (10, 10)) == (6, 6)
 true
 ```
 """
-outdims(c::Chain, isize) = foldr(outdims, reverse(c.layers), init = isize)
+outdims(c::Chain, isize) = foldr(outdims, reverse(c.layers), init=isize)
 
 # This is a temporary and naive implementation
 # it might be replaced in the future for better performance
@@ -181,35 +181,36 @@ function outdims(l::Dense, isize)
 end
 
 """
-    Diagonal(in::Integer)
+    Diagonal(α, β)
+    Diagonal(sz; initα=ones, initβ=zeros)
 
-Create an element-wise linear transformation layer with learnable
-vectors `α` and `β`:
+Create an element-wise linear layer with learnable
+arrays `α` and `β` of size `sz`. The layer performs
 
     y = α .* x .+ β
 
-The input `x` must be a array where `size(x, 1) == in`.
+The input `x` must have size broadcast-compatible with `α` and `β`.
 """
 struct Diagonal{T}
   α::T
   β::T
 end
 
-Diagonal(in::Integer; initα = ones, initβ = zeros) =
-  Diagonal(initα(in), initβ(in))
+function Diagonal(sz; 
+      initα = i -> ones(Float32, i), 
+      initβ = i -> zeros(Float32, i))
+  Diagonal(initα(sz), initβ(sz))
+end
 
 @functor Diagonal
 
-function (a::Diagonal)(x)
-  α, β = a.α, a.β
-  α.*x .+ β
-end
+(a::Diagonal)(x) = a.α .* x .+ a.β
 
 function Base.show(io::IO, l::Diagonal)
   print(io, "Diagonal(", length(l.α), ")")
 end
 
-outdims(l::Diagonal, isize) = (length(l.α),)
+outdims(l::Diagonal, isize) = (Base.Broadcast.broadcast_shape(size(l.α), isize)[1:end-1],)
 
 """
     Maxout(over)

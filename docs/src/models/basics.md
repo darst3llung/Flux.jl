@@ -229,7 +229,7 @@ Currently limited to the following layers:
 - `Chain`
 - `Dense`
 - `Conv`
-- `Diagonal`
+- `Affine`
 - `Maxout`
 - `ConvTranspose`
 - `DepthwiseConv`
