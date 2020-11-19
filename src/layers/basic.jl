@@ -182,7 +182,7 @@ end
 
 """
     Diagonal(α, β)
-    Diagonal(sz; initα=ones, initβ=zeros)
+    Diagonal(sz::Integer...; initα=ones, initβ=zeros)
 
 Create an element-wise linear layer with learnable
 arrays `α` and `β` of size `sz`. The layer performs
@@ -190,13 +190,15 @@ arrays `α` and `β` of size `sz`. The layer performs
     y = α .* x .+ β
 
 The input `x` must have size broadcast-compatible with `α` and `β`.
+The parameters will be created with the calls 
+`α = initα(sz)` and `β = initβ(sz)`.
 """
 struct Diagonal{T}
   α::T
   β::T
 end
 
-function Diagonal(sz; 
+function Diagonal(sz::Integer...; 
       initα = i -> ones(Float32, i), 
       initβ = i -> zeros(Float32, i))
   Diagonal(initα(sz), initβ(sz))

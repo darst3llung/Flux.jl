@@ -26,9 +26,15 @@ version = "2.14.4"
 
 [[ArrayLayouts]]
 deps = ["Compat", "FillArrays", "LinearAlgebra", "SparseArrays"]
+<<<<<<< HEAD
 git-tree-sha1 = "a577e27915fdcb3f6b96118b56655b38e3b466f2"
 uuid = "4c555306-a7a7-4459-81d9-ec55ddd5c99a"
 version = "0.4.12"
+=======
+git-tree-sha1 = "8f6af27c33b766f19fa6cfe46e629775cda81f88"
+uuid = "4c555306-a7a7-4459-81d9-ec55ddd5c99a"
+version = "0.4.11"
+>>>>>>> 4c820106 (more work)
 
 [[Artifacts]]
 deps = ["Pkg"]
@@ -52,9 +58,15 @@ version = "0.4.1"
 
 [[CUDA]]
 deps = ["AbstractFFTs", "Adapt", "BFloat16s", "CEnum", "DataStructures", "ExprTools", "GPUArrays", "GPUCompiler", "LLVM", "Libdl", "LinearAlgebra", "Logging", "MacroTools", "NNlib", "Pkg", "Printf", "Random", "Reexport", "Requires", "SparseArrays", "Statistics", "TimerOutputs"]
+<<<<<<< HEAD
 git-tree-sha1 = "7663b61782b569b03fba91d330a5ed2f86cd4cb8"
 uuid = "052768ef-5323-5732-b1bb-66c8b64840ba"
 version = "2.3.0"
+=======
+git-tree-sha1 = "fa2bea149ed06f7e198346f5462e4dfdf700045e"
+uuid = "052768ef-5323-5732-b1bb-66c8b64840ba"
+version = "2.2.1"
+>>>>>>> 4c820106 (more work)
 
 [[ChainRules]]
 deps = ["ChainRulesCore", "ChainRulesTestUtils", "Compat", "LinearAlgebra", "Random", "Reexport", "Requires", "Statistics"]
