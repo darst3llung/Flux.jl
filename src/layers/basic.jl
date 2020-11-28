@@ -209,10 +209,10 @@ end
 (a::Diagonal)(x) = a.α .* x .+ a.β
 
 function Base.show(io::IO, l::Diagonal)
-  print(io, "Diagonal(", length(l.α), ")")
+  print(io, "Diagonal(", size(l.α), ")")
 end
 
-outdims(l::Diagonal, isize) = (Base.Broadcast.broadcast_shape(size(l.α), isize)[1:end-1],)
+outdims(l::Diagonal, isize) = Base.Broadcast.broadcast_shape(size(l.α), isize)
 
 """
     Maxout(over)
