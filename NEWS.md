@@ -5,7 +5,8 @@
 * The Dense layer now supports inputs with [multiple batch dimensions](https://github.com/FluxML/Flux.jl/pull/1405)
 * Excise datasets in favour of other providers in the julia ecosystem.
 * other new features and bug fixes (see GitHub's releases page)
-* Added option to set `bias` to [false](https://github.com/FluxML/Flux.jl/pull/1379) to eliminating `bias` from being trained.
+* Added option to set `bias` to [false](https://github.com/FluxML/Flux.jl/pull/1379) for eliminating `bias` from being trained.
+* Feature additions and bug fixes for BatchNorm, LayerNorm, InstanceNorm, and GroupNorm [normalization layers](https://github.com/FluxML/Flux.jl/pull/1397)
 
 ## v0.11.2
 
