@@ -496,9 +496,9 @@ the parameters (e.g. the weights but not the biases)/
 # Examples
 
 ```jldoctest
-julia> m1 = Chain(Dense(28^2, 64), BatchNorm(64, relu)); 
+julia> model1 = Chain(Dense(28^2, 64), BatchNorm(64, relu)); 
 
-julia> m2 = Chain(m1, Dense(64, 10))
+julia> model2 = Chain(model1, Dense(64, 10))
 Chain(Chain(Dense(784, 64), BatchNorm(64, λ = relu)), Dense(64, 10))
 
 julia> Flux.modules(m2)
@@ -508,7 +508,14 @@ BatchNorm(64, λ = relu)
 Chain(Dense(784, 64), BatchNorm(64, λ = relu))
 Dense(784, 64)
 Chain(Chain(Dense(784, 64), BatchNorm(64, λ = relu)), Dense(64, 10))
+
+julia> L2(m) = 0f0
+
+julia> L2(m::Dense) = sum(abs2, m.W)
+
+julia> L2reg(model) = sum(L2(m) for m in Flux.modules(model))
 ```
 """
 modules(m) = [x for x in _trainables(m) if !_isleaf(x)]
 
+@nograd modules
