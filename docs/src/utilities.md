@@ -38,6 +38,7 @@ Flux.glorot_normal
 ## Model Abstraction
 
 ```@docs
+Flux.modules
 Flux.destructure
 ```
 

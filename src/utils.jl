@@ -471,3 +471,44 @@ function throttle(f, timeout; leading=true, trailing=false)
     return result
   end
 end
+
+
+function _trainables(x, cache=IdSet())
+  x in cache && return cache
+  push!(cache, x)
+  foreach(y -> _trainables(y, cache), trainable(x))
+  return cache
+end
+
+_isleaf(x) = trainable(x) === ()
+
+"""
+  modules(m)
+
+Return an iterator over the non-leaf objects
+that can be reached from `m` thanks
+to [`@functor`](@ref) and [`trainable`](@ref).
+
+It can be used to apply a regularization
+over certain specific modules or subsets of
+the parameters (e.g. the weights but not the biases)/
+
+# Examples
+
+```jldoctest
+julia> m1 = Chain(Dense(28^2, 64), BatchNorm(64, relu)); 
+
+julia> m2 = Chain(m1, Dense(64, 10))
+Chain(Chain(Dense(784, 64), BatchNorm(64, λ = relu)), Dense(64, 10))
+
+julia> Flux.modules(m2)
+5-element Array{Any,1}:
+Dense(64, 10)
+BatchNorm(64, λ = relu)
+Chain(Dense(784, 64), BatchNorm(64, λ = relu))
+Dense(784, 64)
+Chain(Chain(Dense(784, 64), BatchNorm(64, λ = relu)), Dense(64, 10))
+```
+"""
+modules(m) = [x for x in _trainables(m) if !_isleaf(x)]
+
